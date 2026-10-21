@@ -1,6 +1,7 @@
 <Solution>
   <Folder Name="/API/" />
   <Folder Name="/Core/">
+    <Project Path="DientesLimpios.Aplicacion/DientesLimpios.Aplicacion.csproj" Id="3cb55db7-5414-4aba-b858-11929034844d" />
     <Project Path="DientesLimpios.Dominio/DientesLimpios.Dominio.csproj" />
   </Folder>
   <Folder Name="/Infraestructura/" />

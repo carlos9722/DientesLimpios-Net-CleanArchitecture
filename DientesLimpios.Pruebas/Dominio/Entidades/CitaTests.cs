@@ -145,6 +145,3 @@ namespace DientesLimpios.Pruebas.Dominio.Entidades
         }
     }
 }
-
-
-Observaciones como des

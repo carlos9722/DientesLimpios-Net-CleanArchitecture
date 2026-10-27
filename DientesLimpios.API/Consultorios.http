@@ -1,0 +1,15 @@
+@DientesLimpios.API_HostAddress = http://localhost:5236/api/consultorios
+
+### Obtener consultorio
+GET {{DientesLimpios.API_HostAddress}}/01A17E5F-D7B0-7D05-B0C2-95AEE3AD7163
+Accept: application/json
+
+###
+
+### Crear consultorio
+POST {{DientesLimpios.API_HostAddress}}
+Content-Type: application/json
+
+{
+  "nombre": "Consultorio A"
+}

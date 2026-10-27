@@ -73,6 +73,6 @@ namespace DientesLimpios.Persistencia
         /// Permite consultar, agregar, modificar y eliminar consultorios
         /// mediante las operaciones proporcionadas por Entity Framework Core.
         /// </remarks>
-        public DbSet<Consultorio> Consultorioes { get; set; }
+        public DbSet<Consultorio> Consultorios { get; set; }
     }
 }

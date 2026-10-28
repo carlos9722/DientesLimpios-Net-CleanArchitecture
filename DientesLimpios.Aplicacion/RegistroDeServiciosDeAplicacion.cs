@@ -1,5 +1,6 @@
 ﻿using DientesLimpios.Aplicacion.CasoDeUso.Consultorios.Comandos.CrearConsultorio;
 using DientesLimpios.Aplicacion.CasoDeUso.Consultorios.Consultas.ObtenerDetalleConsultorio;
+using DientesLimpios.Aplicacion.CasoDeUso.Consultorios.Consultas.ObtenerListadoConsultorios;
 using DientesLimpios.Aplicacion.Utilidades.Mediador;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -34,6 +35,10 @@ namespace DientesLimpios.Aplicacion
             // Registra el manejador encargado de consultar el detalle de un consultorio.
             services.AddScoped<IRequestHandler<ConsultaObtenerDetalleConsultorio, ConsultorioDetalleDTO>,
                                CasoDeUsoObtenerDetalleConsultorio>();
+
+            // Registra el manejador para obtener el listado de consultorios.
+            services.AddScoped < IRequestHandler < ConsultaObtenerListadoConsultorios,
+                                List<ConsultorioListadoDTO>>, CasoDeUsoObtenerListadoConsultorios>();
 
             return services;
         }

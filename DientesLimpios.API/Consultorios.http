@@ -6,6 +6,10 @@ Accept: application/json
 
 ###
 
+GET {{DientesLimpios.API_HostAddress}}
+Accept: application/json
+
+
 ### Crear consultorio
 POST {{DientesLimpios.API_HostAddress}}
 Content-Type: application/json

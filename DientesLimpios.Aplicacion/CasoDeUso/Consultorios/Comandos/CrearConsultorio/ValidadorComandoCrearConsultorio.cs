@@ -15,8 +15,8 @@ namespace DientesLimpios.Aplicacion.CasoDeUso.Consultorios.Comandos.CrearConsult
         {
             // Exige que el nombre tenga un valor distinto de nulo, vacío o espacios en blanco.
             RuleFor(p => p.Nombre)
-                .NotEmpty()
-                .WithMessage("El campo {PropertyName} es requerido");
+           .NotEmpty().WithMessage("El campo {PropertyName} es requerido")
+           .MaximumLength(150).WithMessage("La lontigud del campo {PropertyName} debe ser menor o igual a {MaxLength}");
         }
     }
 }

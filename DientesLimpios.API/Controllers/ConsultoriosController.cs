@@ -4,6 +4,7 @@ using DientesLimpios.Aplicacion.CasoDeUso.Consultorios.Comandos.CrearConsultorio
 using DientesLimpios.Aplicacion.CasoDeUso.Consultorios.Consultas.ObtenerDetalleConsultorio;
 using DientesLimpios.Aplicacion.CasoDeUso.Consultorios.Consultas.ObtenerListadoConsultorios;
 using DientesLimpios.Aplicacion.CasosDeUso.Consultorios.Comandos.ActualizarConsultorio;
+using DientesLimpios.Aplicacion.CasosDeUso.Consultorios.Comandos.BorrarConsultorio;
 using DientesLimpios.Aplicacion.Utilidades.Mediador;
 using Microsoft.AspNetCore.Mvc;
 
@@ -107,6 +108,25 @@ namespace DientesLimpios.API.Controllers
             var comando = new ComandoActualizarConsultorio { Id = id, Nombre = actualizarConsultorioDTO.Nombre };
 
             // Envía el comando al mediador para ejecutar la actualización.
+            await mediator.Send(comando);
+
+            return NoContent();
+        }
+
+        /// <summary>
+        /// Elimina un consultorio existente mediante su identificador.
+        /// </summary>
+        /// <param name="id">Identificador único del consultorio que se desea eliminar.</param>
+        /// <returns>
+        /// Una respuesta HTTP 204 No Content cuando la eliminación finaliza correctamente.
+        /// </returns>
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(Guid id)
+        {
+            // Construye el comando que solicita la eliminación del consultorio.
+            var comando = new ComandoBorrarConsultorio { Id = id };
+
+            // Envía el comando al mediador para ejecutar el proceso de eliminación.
             await mediator.Send(comando);
 
             return NoContent();

@@ -2,18 +2,24 @@
 @DientesLimpios.API_HostAddress = http://localhost:5236/api/consultorios
 
 ### Obtener el detalle de un consultorio mediante su identificador.
+# Método: GET
+# Permite consultar la información de un consultorio específico.
 GET {{DientesLimpios.API_HostAddress}}/01A17E5F-D7B0-7D05-B0C2-95AEE3AD7163
 Accept: application/json
 
 ###
 
 ### Obtener el listado de todos los consultorios registrados.
+# Método: GET
+# Retorna la colección de consultorios disponibles.
 GET {{DientesLimpios.API_HostAddress}}
 Accept: application/json
 
 ###
 
 ### Crear un nuevo consultorio enviando su nombre en formato JSON.
+# Método: POST
+# Envía los datos necesarios para registrar un nuevo consultorio.
 POST {{DientesLimpios.API_HostAddress}}
 Content-Type: application/json
 
@@ -24,9 +30,19 @@ Content-Type: application/json
 ###
 
 ### Actualizar el nombre de un consultorio existente mediante su identificador.
+# Método: PUT
+# Envía el identificador del consultorio en la URL y el nuevo nombre en el cuerpo de la solicitud.
 PUT {{DientesLimpios.API_HostAddress}}/01988492-0a91-7940-b9e3-2a7f4a59b81e
 Content-Type: application/json
 
 {
   "nombre": "Consultorio B - Actualizado"
 }
+
+###
+
+### Eliminar un consultorio existente mediante su identificador.
+# Método: DELETE
+# Identifica el consultorio que se desea eliminar mediante su identificador.
+DELETE {{DientesLimpios.API_HostAddress}}/01988492-0a91-7940-b9e3-2a7f4a59b81e
+Accept: application/json

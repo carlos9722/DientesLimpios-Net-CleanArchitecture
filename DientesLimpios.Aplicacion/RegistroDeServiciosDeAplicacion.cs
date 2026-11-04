@@ -3,6 +3,7 @@ using DientesLimpios.Aplicacion.CasoDeUso.Consultorios.Comandos.CrearConsultorio
 using DientesLimpios.Aplicacion.CasoDeUso.Consultorios.Consultas.ObtenerDetalleConsultorio;
 using DientesLimpios.Aplicacion.CasoDeUso.Consultorios.Consultas.ObtenerListadoConsultorios;
 using DientesLimpios.Aplicacion.CasosDeUso.Consultorios.Comandos.ActualizarConsultorio;
+using DientesLimpios.Aplicacion.CasosDeUso.Consultorios.Comandos.BorrarConsultorio;
 using DientesLimpios.Aplicacion.Utilidades.Mediador;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -48,6 +49,9 @@ namespace DientesLimpios.Aplicacion
 
             // Registra el manejador encargado de procesar las solicitudes de actualización de consultorios.
             services.AddScoped<IRequestHandler<ComandoActualizarConsultorio>, CasoDeUsoActualizarConsultorio>();
+
+            // Registra el manejador encargado de procesar las solicitudes de eliminación de consultorios.
+            services.AddScoped<IRequestHandler<ComandoBorrarConsultorio>, CasoDeUsoBorrarConsultorio>();
 
             // Retorna la colección de servicios con las dependencias registradas.
             return services;

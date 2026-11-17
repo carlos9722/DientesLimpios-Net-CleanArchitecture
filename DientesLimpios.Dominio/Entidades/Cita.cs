@@ -15,12 +15,24 @@ namespace DientesLimpios.Dominio.Entidades
         public Guid DentistaId { get; private set; }
         public Guid ConsultorioId { get; private set; }
         public EstadoCita Estado { get; private set; }
-        public IntervaloDeTiempo IntervaloDeTiempo { get; private set; }
+        public IntervaloDeTiempo IntervaloDeTiempo { get; private set; } = null!;
 
         // Referencias opcionales a las entidades relacionadas, útiles al consultar la cita.
         public Paciente? Paciente { get; private set; }
         public Dentista? Dentista { get; private set; }
         public Consultorio? Consultorio { get; private set; }
+
+        /// <summary>
+        /// Inicializa una instancia de la entidad sin parámetros.
+        /// </summary>
+        /// <remarks>
+        /// Constructor privado utilizado por Entity Framework Core
+        /// para materializar la entidad al recuperar información de la base de datos.
+        /// </remarks>
+        private Cita()
+        {
+            
+        }
 
         /// <summary>
         /// Crea una cita programada y valida que su inicio no esté en el pasado.

@@ -16,6 +16,18 @@ namespace DientesLimpios.Dominio.Entidades
         /// Indica que el valor se asignará después, evitando advertencias del compilador.
         public Email Email { get; private set; } = null!;
 
+        // <summary>
+        /// Inicializa una instancia de la entidad sin parámetros.
+        /// </summary>
+        /// <remarks>
+        /// Constructor privado utilizado por Entity Framework Core
+        /// para materializar la entidad al recuperar información de la base de datos.
+        /// </remarks>
+        private Dentista()
+        {
+            
+        }
+
         /// <summary>
         /// Crea un dentista validando sus datos obligatorios.
         /// </summary>

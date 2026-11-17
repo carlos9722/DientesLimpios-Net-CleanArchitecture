@@ -19,6 +19,18 @@ namespace DientesLimpios.Dominio.Entidades
         public Email Email { get; private set; } = null!;
 
         /// <summary>
+        /// Inicializa una instancia de la entidad sin parámetros.
+        /// </summary>
+        /// <remarks>
+        /// Constructor privado utilizado por Entity Framework Core
+        /// para materializar la entidad al recuperar información de la base de datos.
+        /// </remarks>
+        private Paciente()
+        {
+            
+        }
+
+        /// <summary>
         /// Crea un paciente validando los datos obligatorios del negocio.
         /// </summary>
         /// <param name="nombre">Nombre del paciente.</param>

@@ -56,6 +56,11 @@ namespace DientesLimpios.Persistencia
             // del ámbito de servicios correspondiente.
             services.AddScoped<IRepositorioConsultorios, RepositorioConsultorios>();
 
+            // Registra la implementación del repositorio de pacientes.
+            // Cuando se solicite IRepositorioPacientes, el contenedor
+            // proporcionará una instancia de RepositorioPacientes.
+            services.AddScoped<IRepositorioPacientes, RepositorioPacientes>();
+
             // Registra la implementación de la unidad de trabajo con ciclo
             // de vida Scoped, permitiendo coordinar las operaciones de acceso
             // a datos dentro del mismo ámbito de servicios.

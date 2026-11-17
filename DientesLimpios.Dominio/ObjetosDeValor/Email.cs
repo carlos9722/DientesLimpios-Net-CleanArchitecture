@@ -14,6 +14,19 @@ namespace DientesLimpios.Dominio.ObjetosDeValor
         public string Valor { get; } = null!;
 
         /// <summary>
+        /// Inicializa una instancia del objeto de valor sin parámetros.
+        /// </summary>
+        /// <remarks>
+        /// Constructor privado utilizado por Entity Framework Core
+        /// para materializar el objeto cuando recupera información
+        /// de la base de datos.
+        /// </remarks>
+        private Email()
+        {
+            
+        }
+
+        /// <summary>
         /// Crea un correo electrónico validando que tenga un valor básico válido.
         /// </summary>
         /// <param name="email">Dirección de correo electrónico.</param>

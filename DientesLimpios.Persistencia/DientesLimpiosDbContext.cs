@@ -74,5 +74,15 @@ namespace DientesLimpios.Persistencia
         /// mediante las operaciones proporcionadas por Entity Framework Core.
         /// </remarks>
         public DbSet<Consultorio> Consultorios { get; set; }
+
+        /// <summary>
+        /// Obtiene o establece el conjunto de pacientes gestionados por el contexto.
+        /// </summary>
+        /// <remarks>
+        /// Permite realizar operaciones de consulta, creación, modificación
+        /// y eliminación de pacientes mediante Entity Framework Core.
+        /// </remarks>
+        public DbSet<Paciente> Pacientes { get; set; }
+
     }
 }

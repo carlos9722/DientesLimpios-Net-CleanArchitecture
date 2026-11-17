@@ -16,6 +16,18 @@ namespace DientesLimpios.Dominio.ObjetosDeValor
         public DateTime Fin { get; }
 
         /// <summary>
+        /// Inicializa una instancia del objeto de valor sin parámetros.
+        /// </summary>
+        /// <remarks>
+        /// Constructor privado utilizado por Entity Framework Core
+        /// para materializar el objeto al recuperar información de la base de datos.
+        /// </remarks>
+        private IntervaloDeTiempo()
+        {
+            
+        }
+
+        /// <summary>
         /// Crea un intervalo validando que el inicio sea anterior al fin.
         /// </summary>
         /// <param name="inicio">Fecha y hora de inicio.</param>

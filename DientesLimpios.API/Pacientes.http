@@ -1,0 +1,48 @@
+@DientesLimpios.API_HostAddress = http://localhost:5236/api/pacientes
+
+### Obtener el detalle de un paciente
+# Consulta la información de un paciente mediante su identificador único.
+GET {{DientesLimpios.API_HostAddress}}/01988523-5cf5-7316-b590-88b683b857f4
+Accept: application/json
+
+###
+
+### Obtener el listado de pacientes
+# Consulta los pacientes registrados utilizando paginación.
+# pagina: número de página que se desea consultar.
+# registrosPorPagina: cantidad de registros que se obtendrán por página.
+GET {{DientesLimpios.API_HostAddress}}?pagina=1&registrosPorPagina=10
+Accept: application/json
+
+###
+
+### Crear un paciente
+# Registra un nuevo paciente proporcionando su nombre y correo electrónico.
+POST {{DientesLimpios.API_HostAddress}}
+Content-Type: application/json
+
+{
+  "nombre": "Carlos peña",
+  "email": "carlosPeña@ejemplo.com"
+}
+
+###
+
+### Actualizar un paciente
+# Modifica la información de un paciente existente mediante su identificador.
+PUT {{DientesLimpios.API_HostAddress}}/019885d7-9f95-7a4e-9363-1b2ca1a9b45a
+Content-Type: application/json
+
+{
+  "nombre": "Felipe Gavilán",
+  "email": "felipegavilanm887@gmail.com"
+}
+
+###
+
+### Eliminar un paciente
+# Elimina un paciente existente mediante su identificador único.
+DELETE {{DientesLimpios.API_HostAddress}}/019884ff-cc8a-7714-8bcd-6db117005706
+Accept: application/json
+
+###

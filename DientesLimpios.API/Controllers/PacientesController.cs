@@ -1,5 +1,6 @@
 ﻿using DientesLimpios.API.DTOs.Pacientes;
 using DientesLimpios.API.Utilidades;
+using DientesLimpios.Aplicacion.CasoDeUso.Pacientes.Comandos.BorrarPaciente;
 using DientesLimpios.Aplicacion.CasoDeUso.Pacientes.Consultas.ObtenerDetallePaciente;
 using DientesLimpios.Aplicacion.CasoDeUso.Pacientes.Consultas.ObtenerListadoPacientes;
 using DientesLimpios.Aplicacion.CasosDeUso.Pacientes.Comandos.ActualizarPaciente;
@@ -142,5 +143,33 @@ namespace DientesLimpios.API.Controllers
             // Retorna una respuesta indicando que la operación fue exitosa.
             return Ok();
         }
+
+
+
+        /// <summary>
+        /// Elimina un paciente existente del sistema mediante su identificador único.
+        /// </summary>
+        /// <param name="id">
+        /// Identificador único (GUID) del paciente que se desea eliminar.
+        /// </param>
+        /// <returns>
+        /// Una respuesta HTTP 200 (OK) cuando el comando de eliminación
+        /// se procesa correctamente.
+        /// </returns>
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(Guid id)
+        {
+            // Construye el comando de eliminación utilizando el identificador
+            // recibido desde la ruta del endpoint.
+            var comando = new ComandoBorrarPaciente { Id = id };
+
+            // Envía el comando al mediador para que sea procesado
+            // por el caso de uso correspondiente.
+            await mediator.Send(comando);
+
+            // Retorna una respuesta indicando que la operación fue exitosa.
+            return Ok();
+        }
+
     }
 }

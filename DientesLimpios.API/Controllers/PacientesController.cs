@@ -1,4 +1,5 @@
 ﻿using DientesLimpios.API.DTOs.Pacientes;
+using DientesLimpios.API.Utilidades;
 using DientesLimpios.Aplicacion.CasoDeUso.Pacientes.Consultas.ObtenerListadoPacientes;
 using DientesLimpios.Aplicacion.CasosDeUso.Pacientes.Comandos.CrearPaciente;
 using DientesLimpios.Aplicacion.Utilidades.Mediador;
@@ -38,18 +39,22 @@ namespace DientesLimpios.API.Controllers
 
 
         /// <summary>
-        /// Obtiene el listado de pacientes registrados en el sistema.
+        /// Obtiene el listado paginado de pacientes registrados en el sistema.
         /// </summary>
+        /// <param name="consulta">
+        /// Parámetros de consulta utilizados para filtrar y paginar el listado de pacientes.
+        /// </param>
         /// <returns>
-        /// Una respuesta HTTP 200 (OK) con una lista de objetos
-        /// PacienteListadoDTO que contiene la información de los pacientes.
+        /// Una respuesta HTTP 200 (OK) con la lista de pacientes en formato
+        /// PacienteListadoDTO y la cantidad total de registros en la cabecera HTTP.
         /// </returns>
         [HttpGet]
-        public async Task<ActionResult<List<PacienteListadoDTO>>> Get()
+        public async Task<ActionResult<List<PacienteListadoDTO>>> Get(
+            [FromQuery] ConsultaObtenerListadoPacientes consulta)
         {
-            var consulta = new ConsultaObtenerListadoPacientes();
             var resultado = await mediator.Send(consulta);
-            return resultado;
+            HttpContext.InsertarPaginacionEnCabecera(resultado.Total);
+            return resultado.Elementos; ;
         }
 
         /// <summary>

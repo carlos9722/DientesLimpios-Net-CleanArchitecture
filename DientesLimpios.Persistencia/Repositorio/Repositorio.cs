@@ -4,7 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-
 namespace DientesLimpios.Persistencia.Repositorio
 {
     /// <summary>
@@ -12,13 +11,13 @@ namespace DientesLimpios.Persistencia.Repositorio
     /// administradas por Entity Framework Core.
     /// </summary>
     /// <typeparam name="T">
-    /// Tipo de entidad que gestionará el repositorio. Debe ser una clase.
+    /// Tipo de entidad gestionada por el repositorio. Debe ser una clase.
     /// </typeparam>
     /// <remarks>
-    /// Encapsula las operaciones básicas de consulta, inserción, actualización
+    /// Centraliza las operaciones comunes de consulta, inserción, actualización
     /// y eliminación mediante DientesLimpiosDbContext.
-    /// Los cambios realizados se mantienen en el contexto hasta que se
-    /// confirman mediante SaveChanges o SaveChangesAsync.
+    /// Los cambios realizados se confirman en la base de datos mediante
+    /// SaveChanges o SaveChangesAsync.
     /// </remarks>
     public class Repositorio<T> : IRepositorio<T> where T : class
     {
@@ -31,8 +30,7 @@ namespace DientesLimpios.Persistencia.Repositorio
         /// Inicializa una nueva instancia del repositorio genérico.
         /// </summary>
         /// <param name="context">
-        /// Contexto de persistencia que permite consultar y modificar
-        /// las entidades de la base de datos.
+        /// Contexto de persistencia utilizado para consultar y modificar las entidades.
         /// </param>
         public Repositorio(DientesLimpiosDbContext context)
         {
@@ -40,19 +38,17 @@ namespace DientesLimpios.Persistencia.Repositorio
         }
 
         /// <summary>
-        /// Marca una entidad existente para actualizarla.
+        /// Marca una entidad existente para su actualización.
         /// </summary>
         /// <param name="entidad">
-        /// Entidad cuyos cambios se desean guardar en la base de datos.
+        /// Entidad que se desea actualizar.
         /// </param>
         /// <returns>
-        /// Una tarea completada cuando la entidad ha sido marcada
-        /// para actualización en el contexto.
+        /// Una tarea que representa la operación de marcado de la entidad.
         /// </returns>
         /// <remarks>
-        /// Este método no ejecuta por sí mismo una operación de actualización
-        /// en la base de datos. Los cambios deben confirmarse posteriormente
-        /// mediante SaveChanges o SaveChangesAsync.
+        /// Los cambios se aplican en la base de datos al ejecutar
+        /// SaveChanges o SaveChangesAsync.
         /// </remarks>
         public Task Actualizar(T entidad)
         {
@@ -70,8 +66,8 @@ namespace DientesLimpios.Persistencia.Repositorio
         /// Una tarea que contiene la entidad agregada al contexto.
         /// </returns>
         /// <remarks>
-        /// La inserción en la base de datos se realiza cuando los cambios
-        /// se confirman mediante SaveChanges o SaveChangesAsync.
+        /// La inserción en la base de datos se realiza al ejecutar
+        /// SaveChanges o SaveChangesAsync.
         /// </remarks>
         public Task<T> Agregar(T entidad)
         {
@@ -86,12 +82,11 @@ namespace DientesLimpios.Persistencia.Repositorio
         /// Entidad que se desea eliminar.
         /// </param>
         /// <returns>
-        /// Una tarea completada cuando la entidad ha sido marcada
-        /// para eliminación en el contexto.
+        /// Una tarea que representa la operación de marcado de la entidad.
         /// </returns>
         /// <remarks>
-        /// La eliminación en la base de datos se ejecuta cuando los cambios
-        /// se confirman mediante SaveChanges o SaveChangesAsync.
+        /// La eliminación en la base de datos se realiza al ejecutar
+        /// SaveChanges o SaveChangesAsync.
         /// </remarks>
         public Task Borrar(T entidad)
         {
@@ -100,13 +95,24 @@ namespace DientesLimpios.Persistencia.Repositorio
         }
 
         /// <summary>
+        /// Obtiene la cantidad total de registros de la entidad gestionada.
+        /// </summary>
+        /// <returns>
+        /// El número total de registros almacenados.
+        /// </returns>
+        public async Task<int> ObtenerCantitadTotalRegistros()
+        {
+            return await context.Set<T>().CountAsync();
+        }
+
+        /// <summary>
         /// Busca una entidad por su identificador único.
         /// </summary>
         /// <param name="id">
-        /// Identificador GUID de la entidad que se desea buscar.
+        /// Identificador GUID de la entidad que se desea consultar.
         /// </param>
         /// <returns>
-        /// Una tarea que contiene la entidad encontrada o null si no existe.
+        /// La entidad encontrada o null si no existe.
         /// </returns>
         public async Task<T?> ObtenerPorId(Guid id)
         {
@@ -114,10 +120,10 @@ namespace DientesLimpios.Persistencia.Repositorio
         }
 
         /// <summary>
-        /// Obtiene todas las entidades del tipo administrado por el repositorio.
+        /// Obtiene todos los registros de la entidad gestionada por el repositorio.
         /// </summary>
         /// <returns>
-        /// Una tarea que contiene una colección con las entidades encontradas.
+        /// Una colección con las entidades encontradas.
         /// </returns>
         public async Task<IEnumerable<T>> ObtenerTodos()
         {

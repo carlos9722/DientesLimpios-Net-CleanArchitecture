@@ -1,4 +1,5 @@
-﻿using DientesLimpios.Aplicacion.Utilidades.Mediador;
+﻿using DientesLimpios.Aplicacion.Utilidades.Comunes;
+using DientesLimpios.Aplicacion.Utilidades.Mediador;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -6,15 +7,13 @@ using System.Text;
 namespace DientesLimpios.Aplicacion.CasoDeUso.Pacientes.Consultas.ObtenerListadoPacientes
 {
     /// <summary>
-    /// Representa la solicitud para obtener el listado de pacientes registrados
-    /// en el sistema.
+    /// Representa la consulta para obtener el listado paginado de pacientes.
     /// </summary>
     /// <remarks>
-    /// Define una consulta que solicita al mediador una colección de objetos
-    /// PacienteListadoDTO con la información de los pacientes.
-    /// No requiere parámetros adicionales para su ejecución.
+    /// Hereda los criterios de filtrado y paginación de FiltroPacienteDTO
+    /// y define el tipo de respuesta que será procesado por el mediador.
     /// </remarks>
-    public class ConsultaObtenerListadoPacientes : IRequest<List<PacienteListadoDTO>>
+    public class ConsultaObtenerListadoPacientes : FiltroPacienteDTO, IRequest<PaginadoDTO<PacienteListadoDTO>>
     {
 
     }

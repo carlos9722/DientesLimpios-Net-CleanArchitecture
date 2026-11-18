@@ -1,4 +1,5 @@
 ﻿using DientesLimpios.Aplicacion.Contratos.Repositorios;
+using DientesLimpios.Aplicacion.Utilidades.Comunes;
 using DientesLimpios.Aplicacion.Utilidades.Mediador;
 using System;
 using System.Collections.Generic;
@@ -7,28 +8,25 @@ using System.Text;
 namespace DientesLimpios.Aplicacion.CasoDeUso.Pacientes.Consultas.ObtenerListadoPacientes
 {
     /// <summary>
-    /// Implementa el caso de uso encargado de obtener el listado
-    /// de pacientes registrados en el sistema.
+    /// Gestiona el caso de uso para obtener el listado paginado de pacientes.
     /// </summary>
     /// <remarks>
-    /// Consulta los pacientes mediante el repositorio y transforma
-    /// las entidades del dominio en objetos PacienteListadoDTO
-    /// para entregar únicamente la información necesaria al consumidor.
+    /// Consulta los pacientes mediante el repositorio, obtiene el total de registros
+    /// y transforma las entidades en objetos PacienteListadoDTO.
     /// </remarks>
     public class CasoDeUsoObtenerListadoPacientes : IRequestHandler<ConsultaObtenerListadoPacientes,
-                                                                List<PacienteListadoDTO>>
+                                                                PaginadoDTO<PacienteListadoDTO>>
     {
         /// <summary>
-        /// Repositorio utilizado para consultar los pacientes registrados.
+        /// Repositorio encargado de consultar la información de los pacientes.
         /// </summary>
         private readonly IRepositorioPacientes repositorio;
 
         /// <summary>
-        /// Inicializa una nueva instancia del caso de uso de consulta
-        /// de pacientes.
+        /// Inicializa una nueva instancia del caso de uso.
         /// </summary>
         /// <param name="repositorio">
-        /// Repositorio encargado de proporcionar los pacientes almacenados.
+        /// Repositorio utilizado para acceder a la información de los pacientes.
         /// </param>
         public CasoDeUsoObtenerListadoPacientes(IRepositorioPacientes repositorio)
         {
@@ -36,27 +34,34 @@ namespace DientesLimpios.Aplicacion.CasoDeUso.Pacientes.Consultas.ObtenerListado
         }
 
         /// <summary>
-        /// Obtiene los pacientes registrados y transforma sus entidades
-        /// en objetos de transferencia de datos.
+        /// Obtiene el listado paginado de pacientes y transforma sus entidades en DTO.
         /// </summary>
         /// <param name="request">
-        /// Consulta que solicita obtener el listado de pacientes.
+        /// Consulta que contiene los criterios de filtrado y paginación de los pacientes.
         /// </param>
         /// <returns>
-        /// Una lista de objetos PacienteListadoDTO con la información
-        /// de los pacientes registrados.
+        /// Un objeto PaginadoDTO con la lista de pacientes en formato PacienteListadoDTO
+        /// y la cantidad total de registros disponibles.
         /// </returns>
-        public async Task<List<PacienteListadoDTO>> Handle(ConsultaObtenerListadoPacientes request)
+        public async Task<PaginadoDTO<PacienteListadoDTO>> Handle(ConsultaObtenerListadoPacientes request)
         {
-            // Obtiene todas las entidades de pacientes almacenadas mediante el repositorio.
-            var pacientes = await repositorio.ObtenerTodos();
+            // Obtiene los pacientes que cumplen con los criterios de consulta.
+            var pacientes = await repositorio.ObtenerFiltrado(request);
 
-            // Convierte cada entidad Paciente en su correspondiente DTO
-            // y genera una lista con los resultados.
+            // Consulta la cantidad total de pacientes registrados.
+            var totalPacientes = await repositorio.ObtenerCantitadTotalRegistros();
+
+            // Transforma las entidades de pacientes en objetos DTO.
             var pacientesDTO = pacientes.Select(paciente => paciente.ADto()).ToList();
 
-            // Retorna el listado de pacientes preparado para su consumo.
-            return pacientesDTO;
+            var paginadoDTO = new PaginadoDTO<PacienteListadoDTO>
+            {
+                Elementos = pacientesDTO,
+                Total = totalPacientes
+            };
+
+            // Retorna los resultados junto con la cantidad total de registros.
+            return paginadoDTO;
         }
     }
 }

@@ -2,6 +2,7 @@
 using DientesLimpios.API.Utilidades;
 using DientesLimpios.Aplicacion.CasoDeUso.Pacientes.Consultas.ObtenerDetallePaciente;
 using DientesLimpios.Aplicacion.CasoDeUso.Pacientes.Consultas.ObtenerListadoPacientes;
+using DientesLimpios.Aplicacion.CasosDeUso.Pacientes.Comandos.ActualizarPaciente;
 using DientesLimpios.Aplicacion.CasosDeUso.Pacientes.Comandos.CrearPaciente;
 using DientesLimpios.Aplicacion.Utilidades.Mediador;
 using Microsoft.AspNetCore.Mvc;
@@ -103,6 +104,39 @@ namespace DientesLimpios.API.Controllers
 
             // Envía el comando al mediador para que sea procesado
             // por el caso de uso correspondiente.
+            await mediator.Send(comando);
+
+            // Retorna una respuesta indicando que la operación fue exitosa.
+            return Ok();
+        }
+
+
+        /// <summary>
+        /// Actualiza la información de un paciente existente.
+        /// </summary>
+        /// <param name="id">
+        /// Identificador único (GUID) del paciente que se desea actualizar.
+        /// </param>
+        /// <param name="actualizarPacienteDTO">
+        /// Objeto que contiene los nuevos datos del paciente.
+        /// </param>
+        /// <returns>
+        /// Una respuesta HTTP 200 (OK) cuando la actualización
+        /// se procesa correctamente.
+        /// </returns>
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Put(Guid id, ActualizarPacienteDTO actualizarPacienteDTO)
+        {
+            // Construye el comando de actualización con el identificador
+            // recibido en la ruta y los datos proporcionados en el cuerpo de la solicitud.
+            var comando = new ComandoActualizarPaciente
+            {
+                Id = id,
+                Nombre = actualizarPacienteDTO.Nombre,
+                Email = actualizarPacienteDTO.Email
+            };
+
+            // Envía el comando al mediador para ejecutar el caso de uso de actualización.
             await mediator.Send(comando);
 
             // Retorna una respuesta indicando que la operación fue exitosa.

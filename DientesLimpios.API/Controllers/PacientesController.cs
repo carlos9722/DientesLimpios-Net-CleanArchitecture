@@ -1,5 +1,6 @@
 ﻿using DientesLimpios.API.DTOs.Pacientes;
 using DientesLimpios.API.Utilidades;
+using DientesLimpios.Aplicacion.CasoDeUso.Pacientes.Consultas.ObtenerDetallePaciente;
 using DientesLimpios.Aplicacion.CasoDeUso.Pacientes.Consultas.ObtenerListadoPacientes;
 using DientesLimpios.Aplicacion.CasosDeUso.Pacientes.Comandos.CrearPaciente;
 using DientesLimpios.Aplicacion.Utilidades.Mediador;
@@ -55,6 +56,29 @@ namespace DientesLimpios.API.Controllers
             var resultado = await mediator.Send(consulta);
             HttpContext.InsertarPaginacionEnCabecera(resultado.Total);
             return resultado.Elementos; ;
+        }
+
+        /// <summary>
+        /// Obtiene la información detallada de un paciente específico
+        /// mediante su identificador único.
+        /// </summary>
+        /// <param name="id">
+        /// Identificador único (GUID) del paciente que se desea consultar.
+        /// </param>
+        /// <returns>
+        /// Una respuesta HTTP 200 (OK) con la información del paciente
+        /// en formato PacienteDetalleDTO.
+        /// </returns>
+        [HttpGet("{id}")]
+        public async Task<ActionResult<PacienteDetalleDTO>> Get(Guid id)
+        {
+            // Construye la consulta utilizando el identificador recibido
+            // desde la ruta del endpoint.
+            var consulta = new ConsultaObtenerDetallePaciente() { Id = id };
+            // Envía la consulta al mediador para obtener el detalle del paciente.
+            var resultado = await mediator.Send(consulta);
+            // Retorna la información del paciente encontrado.
+            return resultado;
         }
 
         /// <summary>

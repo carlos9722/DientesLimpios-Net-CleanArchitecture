@@ -1,0 +1,43 @@
+
+# Dirección base de la API de dentistas.
+@DientesLimpios.API_HostAddress = http://localhost:5236/api/dentistas
+
+# Consulta el detalle de un dentista mediante su identificador único.
+GET {{DientesLimpios.API_HostAddress}}/01a1f4e5-5b5f-790d-aa7d-07ceacac8223
+Accept: application/json
+
+###
+
+# Obtiene el listado de dentistas aplicando parámetros de paginación.
+# pagina: número de página que se desea consultar.
+# registrosPorPagina: cantidad de registros que se mostrarán por página.
+GET {{DientesLimpios.API_HostAddress}}?pagina=1&registrosPorPagina=10
+Accept: application/json
+
+###
+
+# Registra un nuevo dentista enviando sus datos en formato JSON.
+POST {{DientesLimpios.API_HostAddress}}
+Content-Type: application/json
+
+{
+  "nombre": "Felipe Marrero",
+  "email": "felipe2@ejemplo.com"
+}
+
+###
+
+# Actualiza la información de un dentista existente mediante su identificador.
+PUT {{DientesLimpios.API_HostAddress}}/01a1f4e5-5b5f-790d-aa7d-07ceacac8223
+Content-Type: application/json
+
+{
+  "nombre": "Paciente B - Actualizado",
+  "email": "pacienteBActualizado@ejemplo.com"
+}
+
+###
+
+# Elimina un dentista mediante su identificador único.
+DELETE {{DientesLimpios.API_HostAddress}}/01a1f4e5-5b5f-790d-aa7d-07ceacac8223
+Accept: application/json

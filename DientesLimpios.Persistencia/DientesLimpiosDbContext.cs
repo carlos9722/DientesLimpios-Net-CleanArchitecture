@@ -55,7 +55,6 @@ namespace DientesLimpios.Persistencia
         /// IEntityTypeConfiguration y que se encuentran en el mismo ensamblado
         /// que DientesLimpiosDbContext.
         /// </remarks>
-        /// <param name="modelBuilder">Constructor del modelo de entidades.</param>
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             // Aplica primero las configuraciones predeterminadas de la clase base.
@@ -83,6 +82,15 @@ namespace DientesLimpios.Persistencia
         /// y eliminación de pacientes mediante Entity Framework Core.
         /// </remarks>
         public DbSet<Paciente> Pacientes { get; set; }
+
+        /// <summary>
+        /// Obtiene o establece el conjunto de dentistas gestionados por el contexto.
+        /// </summary>
+        /// <remarks>
+        /// Permite realizar operaciones de consulta, creación, modificación
+        /// y eliminación de dentistas mediante Entity Framework Core.
+        /// </remarks>
+        public DbSet<Dentista> Dentistas { get; set; }
 
     }
 }

@@ -39,6 +39,33 @@ namespace DientesLimpios.Persistencia.Migrations
                     b.ToTable("Consultorios");
                 });
 
+            modelBuilder.Entity("DientesLimpios.Dominio.Entidades.Dentista", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Nombre")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
+
+                    b.ComplexProperty(typeof(Dictionary<string, object>), "Email", "DientesLimpios.Dominio.Entidades.Dentista.Email#Email", b1 =>
+                        {
+                            b1.IsRequired();
+
+                            b1.Property<string>("Valor")
+                                .IsRequired()
+                                .HasMaxLength(254)
+                                .HasColumnType("nvarchar(254)")
+                                .HasColumnName("Email");
+                        });
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Dentistas");
+                });
+
             modelBuilder.Entity("DientesLimpios.Dominio.Entidades.Paciente", b =>
                 {
                     b.Property<Guid>("Id")

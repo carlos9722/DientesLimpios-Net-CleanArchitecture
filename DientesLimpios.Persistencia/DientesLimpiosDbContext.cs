@@ -92,5 +92,15 @@ namespace DientesLimpios.Persistencia
         /// </remarks>
         public DbSet<Dentista> Dentistas { get; set; }
 
+
+        /// <summary>
+        /// Obtiene o establece el conjunto de citas gestionadas por el contexto.
+        /// </summary>
+        /// <remarks>
+        /// Permite realizar operaciones de consulta, creación, modificación
+        /// y eliminación de citas mediante Entity Framework Core.
+        /// </remarks>
+        public DbSet<Cita> Citas { get; set; }
+
     }
 }

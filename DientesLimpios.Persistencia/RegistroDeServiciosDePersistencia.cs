@@ -1,4 +1,5 @@
-﻿using DientesLimpios.Aplicacion.Contratos.Persistencia;
+﻿
+using DientesLimpios.Aplicacion.Contratos.Persistencia;
 using DientesLimpios.Aplicacion.Contratos.Repositorios;
 using DientesLimpios.Persistencia.Repositorio;
 using DientesLimpios.Persistencia.UnidadDeTrabajo;
@@ -16,30 +17,26 @@ namespace DientesLimpios.Persistencia
     /// de inyección de dependencias de la aplicación.
     /// </summary>
     /// <remarks>
-    /// Esta clase centraliza la configuración de Entity Framework Core
-    /// y el registro de las implementaciones de los repositorios y de
-    /// la unidad de trabajo.
+    /// Centraliza la configuración de Entity Framework Core y el registro
+    /// de los repositorios y la unidad de trabajo.
     /// </remarks>
     public static class RegistroDeServiciosDePersistencia
     {
         /// <summary>
-        /// Agrega al contenedor de inyección de dependencias los servicios
-        /// necesarios para acceder y gestionar los datos de la aplicación.
+        /// Registra las dependencias necesarias para acceder y gestionar
+        /// los datos de la aplicación.
         /// </summary>
         /// <param name="services">
-        /// El contenedor de servicios de la aplicación, al que se agregan
-        /// las dependencias de la capa de persistencia.
+        /// Contenedor de servicios donde se registran las dependencias.
         /// </param>
         /// <returns>
-        /// La misma colección de servicios recibida, con las dependencias
-        /// de persistencia registradas, para permitir encadenar
-        /// configuraciones adicionales.
+        /// La colección de servicios actualizada, permitiendo encadenar
+        /// otras configuraciones.
         /// </returns>
         /// <remarks>
-        /// Configura el contexto de Entity Framework Core para utilizar
-        /// SQL Server y registra los repositorios y la unidad de trabajo
-        /// con un ciclo de vida Scoped, es decir, una instancia por ámbito
-        /// de servicios, normalmente asociado a una solicitud HTTP.
+        /// Configura Entity Framework Core para utilizar SQL Server
+        /// y registra los repositorios y la unidad de trabajo con ciclo
+        /// de vida Scoped (una instancia por ámbito de servicios).
         /// </remarks>
         public static IServiceCollection AgregarServiciosDePersistencia(
             this IServiceCollection services)
@@ -65,6 +62,11 @@ namespace DientesLimpios.Persistencia
             // Cuando se solicite IRepositorioDentista, el contenedor
             // proporcionará una instancia de RepositorioDentista.
             services.AddScoped<IRepositorioDentista, RepositorioDentista>();
+
+            // Registra la implementación del repositorio de citas.
+            // Cuando se solicite IRepositorioCitas, el contenedor
+            // proporcionará una instancia de RepositorioCitas.
+            services.AddScoped<IRepositorioCitas, RepositorioCitas>();
 
             // Registra la implementación de la unidad de trabajo con ciclo
             // de vida Scoped, permitiendo coordinar las operaciones de acceso

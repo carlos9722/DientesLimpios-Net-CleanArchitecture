@@ -1,5 +1,6 @@
 ﻿
 using DientesLimpios.API.DTOs.Citas;
+using DientesLimpios.Aplicacion.CasoDeUso.Citas.Comandos.CompletarCita;
 using DientesLimpios.Aplicacion.CasoDeUso.Citas.Comandos.CrearCita;
 using DientesLimpios.Aplicacion.CasoDeUso.Citas.Consultas.ObtenerDetalleCita;
 using DientesLimpios.Aplicacion.CasoDeUso.Citas.Consultas.ObtenerListadoCitas;
@@ -90,6 +91,19 @@ namespace DientesLimpios.API.Controllers
             };
 
             var resultado = await mediator.Send(comando);
+            return Ok();
+        }
+
+        /// <summary>
+        /// Marca una cita como completada.
+        /// </summary>
+        /// <param name="id">Identificador único de la cita que se desea completar.</param>
+        /// <returns>Respuesta HTTP 200 cuando la operación se ejecuta correctamente.</returns>
+        [HttpPost("{id}/completar")]
+        public async Task<IActionResult> Completar(Guid id)
+        {
+            var consulta = new ComandoCompletarCita { Id = id };
+            await mediator.Send(consulta);
             return Ok();
         }
 

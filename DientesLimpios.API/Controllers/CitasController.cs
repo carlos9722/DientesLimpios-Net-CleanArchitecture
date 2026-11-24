@@ -2,6 +2,7 @@
 using DientesLimpios.API.DTOs.Citas;
 using DientesLimpios.Aplicacion.CasoDeUso.Citas.Comandos.CrearCita;
 using DientesLimpios.Aplicacion.CasoDeUso.Citas.Consultas.ObtenerDetalleCita;
+using DientesLimpios.Aplicacion.CasoDeUso.Citas.Consultas.ObtenerListadoCitas;
 using DientesLimpios.Aplicacion.Utilidades.Mediador;
 using Microsoft.AspNetCore.Mvc;
 
@@ -31,6 +32,22 @@ namespace DientesLimpios.API.Controllers
             this.mediator = mediator;
         }
 
+
+        /// <summary>
+        /// Obtiene el listado de citas según los criterios de búsqueda proporcionados.
+        /// </summary>
+        /// <param name="consulta">
+        /// Contiene los filtros utilizados para consultar las citas.
+        /// </param>
+        /// <returns>
+        /// Lista de citas que cumplen con los criterios de búsqueda.
+        /// </returns>
+        [HttpGet]
+        public async Task<ActionResult<List<CitaListadoDTO>>> Get([FromQuery] ConsultaObtenerListadoCitas consulta)
+        {
+            var resultado = await mediator.Send(consulta);
+            return resultado;
+        }
 
         /// <summary>
         /// Obtiene el detalle de una cita mediante su identificador.

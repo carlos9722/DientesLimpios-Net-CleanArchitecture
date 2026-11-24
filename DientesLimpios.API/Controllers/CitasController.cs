@@ -1,6 +1,7 @@
 ﻿
 using DientesLimpios.API.DTOs.Citas;
-using DientesLimpios.Aplicacion.CasoDeUso.Citas.CrearCita;
+using DientesLimpios.Aplicacion.CasoDeUso.Citas.Comandos.CrearCita;
+using DientesLimpios.Aplicacion.CasoDeUso.Citas.Consultas.ObtenerDetalleCita;
 using DientesLimpios.Aplicacion.Utilidades.Mediador;
 using Microsoft.AspNetCore.Mvc;
 
@@ -28,6 +29,24 @@ namespace DientesLimpios.API.Controllers
         public CitasController(IMediator mediator)
         {
             this.mediator = mediator;
+        }
+
+
+        /// <summary>
+        /// Obtiene el detalle de una cita mediante su identificador.
+        /// </summary>
+        /// <param name="id">
+        /// Identificador único de la cita que se desea consultar.
+        /// </param>
+        /// <returns>
+        /// Detalle de la cita encontrada.
+        /// </returns>
+        [HttpGet("{id}")]
+        public async Task<ActionResult<CitaDetalleDTO>> Get(Guid id)
+        {
+            var consulta = new ConsultaObtenerDetalleCita { Id = id };
+            var resultado = await mediator.Send(consulta);
+            return resultado;
         }
 
 

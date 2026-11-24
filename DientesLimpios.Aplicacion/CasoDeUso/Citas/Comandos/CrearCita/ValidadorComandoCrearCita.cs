@@ -1,10 +1,9 @@
-﻿
-using FluentValidation;
+﻿using FluentValidation;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace DientesLimpios.Aplicacion.CasoDeUso.Citas.CrearCita
+namespace DientesLimpios.Aplicacion.CasoDeUso.Citas.Comandos.CrearCita
 {
     /// <summary>
     /// Define las reglas de validación para el comando de creación de citas.

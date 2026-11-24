@@ -1,10 +1,9 @@
-﻿
-using DientesLimpios.Aplicacion.Utilidades.Mediador;
+﻿using DientesLimpios.Aplicacion.Utilidades.Mediador;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace DientesLimpios.Aplicacion.CasoDeUso.Citas.CrearCita
+namespace DientesLimpios.Aplicacion.CasoDeUso.Citas.Comandos.CrearCita
 {
     /// <summary>
     /// Representa la solicitud para crear una nueva cita y obtener

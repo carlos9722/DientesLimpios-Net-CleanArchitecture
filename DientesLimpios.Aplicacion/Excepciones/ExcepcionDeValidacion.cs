@@ -1,4 +1,5 @@
-﻿using FluentValidation.Results;
+﻿
+using FluentValidation.Results;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -30,6 +31,16 @@ namespace DientesLimpios.Aplicacion.Excepciones
                 ErroresDeValidacion.Add(errorDeValidacion.ErrorMessage);
             }
         }
+
+        /// <summary>
+        /// Inicializa la excepción con un mensaje de error específico.
+        /// </summary>
+        /// <param name="mensajeDeError">
+        /// Mensaje que describe el error de validación.
+        /// </param>
+        public ExcepcionDeValidacion(string mensajeDeError)
+        {
+            ErroresDeValidacion.Add(mensajeDeError);
+        }
     }
 }
-

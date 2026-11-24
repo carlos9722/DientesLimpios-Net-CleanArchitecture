@@ -1,6 +1,7 @@
 
 using DientesLimpios.API.Middlewares;
 using DientesLimpios.Aplicacion;
+using DientesLimpios.Infraestructura;
 using DientesLimpios.Persistencia;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,6 +12,7 @@ builder.Services.AddControllers();
 // Registra las dependencias de la capa de aplicación y persistencia.
 builder.Services.AgregarServiciosDeAplicacion();
 builder.Services.AgregarServiciosDePersistencia();
+builder.Services.AgregarServiciosDeInfraestructura();
 
 var app = builder.Build();
 

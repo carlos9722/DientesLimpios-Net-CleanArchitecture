@@ -1,5 +1,7 @@
 ﻿
+using DientesLimpios.Aplicacion.Contratos.Identidad;
 using DientesLimpios.Identidad.Modelos;
+using DientesLimpios.Identidad.Servicios;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -36,10 +38,10 @@ namespace DientesLimpios.Identidad
                 .AddApiEndpoints();
 
             // Registra servicios adicionales relacionados con la gestión de usuarios.
-            //services.AddTransient<IServicioUsuarios, ServicioUsuarios>();
+            services.AddTransient<IServicioUsuarios, ServicioUsuarios>();
 
             // Permite acceder al contexto HTTP actual desde los servicios de la aplicación.
-            //services.AddHttpContextAccessor();
+            services.AddHttpContextAccessor();
         }
 
     }

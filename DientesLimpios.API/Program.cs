@@ -6,11 +6,15 @@ using DientesLimpios.Identidad;
 using DientesLimpios.Identidad.Modelos;
 using DientesLimpios.Infraestructura;
 using DientesLimpios.Persistencia;
+using Microsoft.AspNetCore.Mvc.Authorization;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Registra los controladores para permitir que la API reciba y gestione solicitudes HTTP.
-builder.Services.AddControllers();
+// Registra los controladores y establece un filtro de autorización global para permitir únicamente el acceso a los usuarios que cumplan la política "esadmin".
+builder.Services.AddControllers(opciones =>
+{
+    opciones.Filters.Add(new AuthorizeFilter("esadmin"));
+});
 
 // Registra los servicios de las diferentes capas de la aplicación mediante inyección de dependencias.
 builder.Services.AgregarServiciosDeAplicacion();

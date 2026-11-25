@@ -6,6 +6,7 @@ using DientesLimpios.Aplicacion.CasoDeUso.Consultorios.Consultas.ObtenerListadoC
 using DientesLimpios.Aplicacion.CasosDeUso.Consultorios.Comandos.ActualizarConsultorio;
 using DientesLimpios.Aplicacion.CasosDeUso.Consultorios.Comandos.BorrarConsultorio;
 using DientesLimpios.Aplicacion.Utilidades.Mediador;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DientesLimpios.API.Controllers
@@ -16,6 +17,7 @@ namespace DientesLimpios.API.Controllers
     /// </summary>
     [ApiController]
     [Route("api/consultorios")]
+    //[Authorize]
     public class ConsultoriosController : ControllerBase
     {
         /// <summary>

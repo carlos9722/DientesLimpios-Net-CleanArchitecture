@@ -2,35 +2,45 @@
 using DientesLimpios.API.Jobs;
 using DientesLimpios.API.Middlewares;
 using DientesLimpios.Aplicacion;
+using DientesLimpios.Identidad;
+using DientesLimpios.Identidad.Modelos;
 using DientesLimpios.Infraestructura;
 using DientesLimpios.Persistencia;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Registra los servicios necesarios para exponer los controladores HTTP.
+// Registra los controladores para permitir que la API reciba y gestione solicitudes HTTP.
 builder.Services.AddControllers();
 
-// Registra las dependencias de la capa de aplicación y persistencia.
+// Registra los servicios de las diferentes capas de la aplicación mediante inyección de dependencias.
 builder.Services.AgregarServiciosDeAplicacion();
 builder.Services.AgregarServiciosDePersistencia();
 builder.Services.AgregarServiciosDeInfraestructura();
+
+// Registra el servicio en segundo plano encargado de ejecutar las tareas de recordatorio de citas.
 builder.Services.AddHostedService<RecordatorioCitasJob>();
+
+// Registra los servicios necesarios para gestionar la autenticación y la identidad de los usuarios.
+builder.Services.AgregarServiciosDeIdentidad();
 
 var app = builder.Build();
 
-// Configura el pipeline que procesa las solicitudes HTTP.
+// Configura el pipeline HTTP, definiendo los componentes que procesan las solicitudes entrantes.
 
-// Captura y gestiona las excepciones no controladas de la aplicación.
+// Expone los endpoints de identidad para gestionar operaciones como el registro y la autenticación de usuarios.
+app.MapIdentityApi<Usuario>();
+
+// Intercepta las excepciones no controladas y las procesa de forma centralizada.
 app.UseManejadorExcepciones();
 
-// Redirige las solicitudes HTTP a HTTPS.
+// Redirige automáticamente las solicitudes HTTP hacia HTTPS para establecer una conexión segura.
 app.UseHttpsRedirection();
 
-// Aplica las políticas de autorización configuradas.
+// Aplica las políticas de autorización para controlar el acceso a los recursos protegidos.
 app.UseAuthorization();
 
-// Asocia las rutas de los controladores con sus endpoints HTTP.
+// Registra los endpoints de los controladores para que puedan recibir solicitudes HTTP.
 app.MapControllers();
 
-// Inicia la aplicación y comienza a escuchar solicitudes.
+// Inicia la aplicación y comienza a escuchar las solicitudes HTTP entrantes.
 app.Run();
